@@ -1,0 +1,63 @@
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
+
+android {
+  compileSdkVersion versions.compileSdkVersion
+
+  defaultConfig {
+    applicationId "abhishek.flickr"
+    minSdkVersion versions.minSdkVersion
+    targetSdkVersion versions.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    debug {
+      applicationIdSuffix ".debug"
+      versionNameSuffix "-debug"
+    }
+
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile("proguard-android.txt")
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  dataBinding { enabled = true }
+}
+
+dependencies {
+  testImplementation libs.junit
+  testImplementation libs.assertjCore
+  testImplementation libs.mockitoCore
+  testImplementation libs.robolectric
+  testImplementation libs.mockitoKotlin, { exclude group: "org.jetbrains.kotlin" }
+  testImplementation libs.kluent, { exclude group: "org.jetbrains.kotlin" }
+
+  implementation libs.materialSearchView
+  implementation libs.supportDesign
+  implementation libs.appCompat
+  implementation libs.recyclerView
+  implementation libs.kotlin
+  implementation libs.fresco
+  implementation libs.photoDraweeView
+  implementation libs.bindingCollectionAdapterRecyclerView
+  implementation libs.rxAndroid
+  implementation libs.rxRelay
+  implementation libs.timber
+
+  implementation libs.dagger
+  kapt libs.daggerCompiler
+  kapt libs.daggerAndroidProcessor
+  implementation libs.daggerAndroid
+  implementation libs.daggerAndroidSupport
+
+  implementation project(":domain")
+  implementation project(":data")
+}

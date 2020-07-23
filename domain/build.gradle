@@ -1,0 +1,20 @@
+apply plugin: "java-library"
+apply plugin: "kotlin"
+apply plugin: "kotlin-kapt"
+
+dependencies {
+  testImplementation libs.junit
+  testImplementation libs.assertjCore
+  testImplementation libs.mockitoCore
+  testImplementation libs.mockitoKotlin, { exclude group: "org.jetbrains.kotlin" }
+  testImplementation libs.kluent, { exclude group: "org.jetbrains.kotlin" }
+
+  implementation libs.rxJava
+  implementation libs.rxRelay
+  implementation libs.kotlin
+  implementation libs.dagger
+  kapt libs.daggerCompiler
+}
+
+targetCompatibility = "1.8"
+sourceCompatibility = "1.8"

@@ -1,0 +1,40 @@
+buildscript {
+  apply from: "dependencies.gradle"
+
+  repositories {
+    google()
+    jcenter()
+  }
+
+  dependencies {
+    // See changelog: http://developer.android.com/tools/revisions/gradle-plugin.html.
+    classpath "com.android.tools.build:gradle:$versions.androidPluginVersion"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlinVersion"
+  }
+}
+
+plugins {
+  id("io.gitlab.arturbosch.detekt").version("1.0.0-RC15")
+}
+
+allprojects {
+  apply from: "${rootDir}/dependencies.gradle"
+
+  repositories {
+    google()
+    jcenter()
+    maven { url "https://maven.google.com" }
+  }
+}
+
+subprojects {
+  apply plugin: "io.gitlab.arturbosch.detekt"
+
+  detekt {
+    toolVersion = "1.0.0-RC15"
+  }
+}
+
+task clean(type: Delete) {
+  delete rootProject.buildDir
+}

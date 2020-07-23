@@ -1,0 +1,47 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
+
+android {
+  compileSdkVersion versions.compileSdkVersion
+
+  defaultConfig {
+    minSdkVersion versions.minSdkVersion
+    targetSdkVersion versions.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+    javaCompileOptions.annotationProcessorOptions.includeCompileClasspath true
+  }
+}
+
+dependencies {
+  testImplementation libs.junit
+  testImplementation libs.assertjCore
+  testImplementation libs.mockitoCore
+  testImplementation libs.robolectric
+  testImplementation libs.mockitoKotlin, { exclude group: "org.jetbrains.kotlin" }
+  testImplementation libs.kluent, { exclude group: "org.jetbrains.kotlin" }
+
+  implementation project(":domain")
+  implementation libs.rxJava
+  implementation libs.gson
+  implementation libs.okHttp
+  implementation libs.loggingInterceptor
+  implementation libs.retrofit
+  implementation libs.retrofitAdapterRxJava
+  implementation libs.retrofitConverterGson
+  implementation libs.kotlin
+  implementation libs.timber
+
+  implementation libs.roomRuntime
+  kapt libs.roomCompiler
+
+  implementation libs.dagger
+  kapt libs.daggerCompiler
+
+  // Setup for http://immutables.github.io/.
+  kapt libs.value
+  compileOnly libs.valueAnnotations
+  compileOnly libs.builderAnnotations
+  compileOnly libs.gsonAnnotations
+}
